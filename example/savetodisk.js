@@ -43,7 +43,7 @@ var downloadSite = function(initialURL, callback) {
                 fs.writeFile(filepath, responseBuffer, function() {});
             } else {
                 // Else, recursively create dir using node-fs, then write file
-                fs.mkdir(dirname, 0755, true, function() {
+                fs.mkdir(dirname, 755, true, function() {
                     fs.writeFile(filepath, responseBuffer, function() {});
                 });
             }
