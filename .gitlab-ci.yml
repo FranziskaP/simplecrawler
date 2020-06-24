@@ -1,0 +1,39 @@
+image: node:latest
+
+cache:
+  paths:
+    - node_modules/
+
+build_batch_api:
+  stage: build
+  script:
+    - npm install
+
+vulnerabilities:
+  stage: test
+  script:
+    - npm audit
+  except:
+    - tags
+
+test_batch_api_test_ssl:
+  stage: test
+  script: npm run test
+#  artifacts:
+#    paths:
+#      - dist/
+#      - junit.xml
+#    reports:
+#      junit: junit.xml
+  except:
+    - tags
+
+publish_npm_package:
+  stage: deploy
+  script:
+    - chmod +x ./release.sh
+    - ./release.sh
+  only:
+    refs:
+      - master
+
